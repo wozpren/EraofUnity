@@ -1,0 +1,23 @@
+.text-back {
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-right: 0;
+    padding-left: 0;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-left-width: 5px;
+    border-right-width: 5px;
+    border-top-width: 5px;
+    border-bottom-width: 5px;
+    border-left-color: rgba(200, 200, 200, 255);
+    border-right-color: rgba(200, 200, 200, 255);
+    border-top-color: rgba(200, 200, 200, 255);
+    border-bottom-color: rgba(200, 200, 200, 255);
+    background-color: rgba(200, 200, 200, 255);
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}

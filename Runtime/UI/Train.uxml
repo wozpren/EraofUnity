@@ -1,0 +1,14 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/UnityThemes/text-back.uss?fileID=7433441132597879392&amp;guid=1fac8f1da1d91a54c8f33e43affe23cd&amp;type=3#text-back" />
+    <ui:VisualElement name="Root" style="align-items: center; justify-content: space-between; flex-direction: row; visibility: visible; height: 100%; padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px;">
+        <ui:VisualElement name="Left" style="width: 70%; height: 100%;">
+            <ui:Label name="CharMsg" class="text-back" style="height: 27.3%;" />
+            <ui:Label display-tooltip-when-elided="true" name="TrainBtns" class="text-back" style="height: 69.3%; -unity-slice-left: 0; -unity-slice-top: 0; -unity-slice-right: 0; -unity-slice-bottom: 0; -unity-background-scale-mode: scale-and-crop;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="Right" style="width: 30%; height: 100%;">
+            <ui:ScrollView horizontal-scroller-visibility="Hidden">
+                <ui:Label display-tooltip-when-elided="true" name="Message" class="text-back" />
+            </ui:ScrollView>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
