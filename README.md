@@ -5,7 +5,8 @@
 1. 文字式UI框架
 2. 基本人物类
 3. 数据驱动的口上
-4. 基本的系统功能
+4. 调教功能
+5. 基本的系统功能
 ## 如何使用
 ### 直接使用框架
 使用 package manager 添加该项目 url: https://github.com/wozpren/EraofUnity.git
