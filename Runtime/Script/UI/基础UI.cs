@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public abstract class BaseUI
+public abstract class 基础UI
 {
     public readonly string Name;
     public  bool Single = true;
@@ -19,7 +19,7 @@ public abstract class BaseUI
 
 
 
-    public BaseUI()
+    public 基础UI()
     {
         Name = this.GetType().Name;
         if(obj.TryGetComponent(out Canvas canvas))
@@ -40,7 +40,7 @@ public abstract class BaseUI
             canvas.enabled = true;
         else
             obj.transform.localPosition = Vector3.zero;
-        UIManager.Instance.UIOnOpen(this);
+        UI管理器.Instance.UIOnOpen(this);
         return true;
     }
 
@@ -55,7 +55,7 @@ public abstract class BaseUI
             obj.transform.localPosition = new Vector3(999999, 999999);
 
         EventSystem.current.SetSelectedGameObject(null);
-        UIManager.Instance.UIOnClose(this);
+        UI管理器.Instance.UIOnClose(this);
 
         return true;
     }
@@ -83,7 +83,7 @@ public abstract class BaseUI
         }
         else
         {
-            GameManager.Instance.StartCoroutine(YieldAniFinish(ani, aniName, action));
+            游戏管理器.实例.StartCoroutine(YieldAniFinish(ani, aniName, action));
         }
     }
 

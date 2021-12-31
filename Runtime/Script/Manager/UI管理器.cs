@@ -4,27 +4,20 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using System.Linq;
 
-public class UIManager : BaseManager<UIManager>
+public class UI管理器 : 基础管理器<UI管理器>
 {
-    private Dictionary<string, BaseUI> UICollection = new Dictionary<string, BaseUI>();
+    private Dictionary<string, 基础UI> UICollection = new Dictionary<string, 基础UI>();
+    private List<基础UI> UpdateCollection = new List<基础UI>();
+    private Stack<(基础UI,object[])> UIStack = new Stack<(基础UI, object[])>();
 
-    private List<BaseUI> UpdateCollection = new List<BaseUI>();
 
-    private Stack<(BaseUI,object[])> UIStack = new Stack<(BaseUI, object[])>();
 
-    public Transform Canvas { get; private set; }
-    public Transform BackCanvas { get; private set; }
-
-    private EventSystem eventSystems;
-    private Camera uiCamera;
-    private GameState LastState;
-
-    public BaseUI GetUI(string name)
+    public 基础UI GetUI(string name)
     {
         if (!UICollection.ContainsKey(name))
         {
             var t = System.Type.GetType(name);
-            var ui = (BaseUI)System.Activator.CreateInstance(t);
+            var ui = (基础UI)System.Activator.CreateInstance(t);
             if (!ui.Single)
             {
                 name += "_" + ui.obj.GetInstanceID();
@@ -38,7 +31,7 @@ public class UIManager : BaseManager<UIManager>
     }
 
 
-    public T GetUI<T>() where T : BaseUI, new()
+    public T GetUI<T>() where T : 基础UI, new()
     {
         var name = typeof(T).Name;
         if(!UICollection.ContainsKey(name))
@@ -49,7 +42,7 @@ public class UIManager : BaseManager<UIManager>
         return UICollection[name] as T;
     }
 
-    public T GetUI<T>(string name) where T : BaseUI, new()
+    public T GetUI<T>(string name) where T : 基础UI, new()
     {
         if (!UICollection.ContainsKey(name))
         {
@@ -60,7 +53,7 @@ public class UIManager : BaseManager<UIManager>
     }
 
 
-    public void InitUI<T>() where T : BaseUI, new()
+    public void InitUI<T>() where T : 基础UI, new()
     {
         var ui = new T();
         var name = ui.GetType().Name;
@@ -71,20 +64,6 @@ public class UIManager : BaseManager<UIManager>
         }
 
         UICollection.Add(name, ui);
-    }
-
-
-
-    public override void Init()
-    {
-        Canvas = GameObject.Find("Canvas/Front").transform;
-        BackCanvas = GameObject.Find("Canvas/Back").transform;
-        eventSystems = GameObject.Find("EventSystem").GetComponent<EventSystem>();
-        var root = GameObject.Find("Camera");
-
-        Object.DontDestroyOnLoad(Canvas.parent);
-        Object.DontDestroyOnLoad(eventSystems);
-        Object.DontDestroyOnLoad(root);
     }
 
     public override void Update()
@@ -102,12 +81,6 @@ public class UIManager : BaseManager<UIManager>
 
         if (UICollection[name].Open(parms))
         {
-            if (GameManager.Instance.GameState != GameState.UI)
-            {
-                LastState = GameManager.Instance.GameState;
-                GameManager.Instance.GameState = GameState.UI;
-            }
-
             if (UIStack.Count != 0)
             {
                 var ui = UIStack.Peek();
@@ -119,7 +92,7 @@ public class UIManager : BaseManager<UIManager>
         return false;
     }
 
-    public bool Navigation<T>(params object[] parms) where T : BaseUI, new()
+    public bool Navigation<T>(params object[] parms) where T : 基础UI, new()
     {
         var name = typeof(T).Name;
 
@@ -130,11 +103,6 @@ public class UIManager : BaseManager<UIManager>
 
         if (UICollection[name].Open(parms))
         {
-            if (GameManager.Instance.GameState != GameState.UI)
-            {
-                LastState = GameManager.Instance.GameState;
-                GameManager.Instance.GameState = GameState.UI;
-            }
 
             if (UIStack.Count != 0)
             {
@@ -147,26 +115,14 @@ public class UIManager : BaseManager<UIManager>
         return false;
     }
 
-    public void UIOnOpen(BaseUI ui)
+    public void UIOnOpen(基础UI ui)
     {
-        UpdateCollection.Add(ui);
-        
-        if(GameManager.Instance.GameState != GameState.UI)
-        {
-            LastState = GameManager.Instance.GameState;
-            GameManager.Instance.GameState = GameState.UI;
-        }
+        UpdateCollection.Add(ui);        
     }
 
-    public void UIOnClose(BaseUI ui)
+    public void UIOnClose(基础UI ui)
     {
         UpdateCollection.Remove(ui);
-
-
-        if (UpdateCollection.Count(ui => !ui.IsOpen && ui.IsFonrt) == 0)
-        {
-            GameManager.Instance.GameState = LastState;
-        }
     }
 
 
@@ -191,14 +147,10 @@ public class UIManager : BaseManager<UIManager>
                 var t = UIStack.Peek();
                 t.Item1.Open(t.Item2);
             }
-            else
-            {
-                GameManager.Instance.GameState = LastState;
-            }
         }
     }
 
-    internal void OutUpdate(BaseUI ui)
+    internal void OutUpdate(基础UI ui)
     {
     }
 }

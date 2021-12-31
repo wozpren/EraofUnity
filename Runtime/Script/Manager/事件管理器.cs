@@ -31,11 +31,11 @@ public class FuncInfo<T, R> : IEventInfo
     public Func<T, R> action;
 }
 
-public static class EventManager
+public static class 事件管理器
 {
     private static Dictionary<string, IEventInfo> actions = new Dictionary<string, IEventInfo>();
 
-    public static void AddEvent(string name)
+    public static void 添加事件(string name)
     {
         if (!actions.ContainsKey(name))
         {
@@ -46,14 +46,14 @@ public static class EventManager
             Debug.Log("事件已存在");
         }
     }
-    public static void AddEvent<T>(string name)
+    public static void 添加事件<T>(string name)
     {
         if (!actions.ContainsKey(name))
         {
             actions.Add(name, new EventInfo<T>());
         }
     }
-    public static void AddEvent<T1, T2>(string name)
+    public static void 添加事件<T1, T2>(string name)
     {
         if (!actions.ContainsKey(name))
         {
@@ -61,7 +61,7 @@ public static class EventManager
         }
     }
 
-    public static void AddFunc<R>(string name)
+    public static void 添加回传事件<R>(string name)
     {
         if (!actions.ContainsKey(name))
         {
@@ -69,7 +69,7 @@ public static class EventManager
         }
     }
 
-    public static void AddFunc<R, T>(string name)
+    public static void 添加回传事件<R, T>(string name)
     {
         if (!actions.ContainsKey(name))
         {
@@ -78,7 +78,7 @@ public static class EventManager
     }
 
 
-    public static void AddListener(string name, UnityAction action)
+    public static void 添加监听器(string name, UnityAction action)
     {
         try
         {
@@ -97,7 +97,7 @@ public static class EventManager
             Debug.LogError(e.Message);
         }
     }
-    public static void AddListener<T>(string name, UnityAction<T> action)
+    public static void 添加监听器<T>(string name, UnityAction<T> action)
     {
         try
         {
@@ -112,7 +112,7 @@ public static class EventManager
             Debug.LogError(e.Message);
         }
     }
-    public static void AddListener<T1, T2>(string name, UnityAction<T1, T2> action)
+    public static void 添加监听器<T1, T2>(string name, UnityAction<T1, T2> action)
     {
         try
         {
@@ -128,7 +128,7 @@ public static class EventManager
         }
     }
 
-    public static void AddListener<T, R>(string name, Func<T, R> action)
+    public static void 添加监听器<T, R>(string name, Func<T, R> action)
     {
         try
         {
@@ -144,7 +144,13 @@ public static class EventManager
         }
     }
 
-    public static void SetListener<R>(string name, Func<R> action)
+    /// <summary>
+    /// 直接覆盖对应的事件监听器
+    /// </summary>
+    /// <typeparam name="R"></typeparam>
+    /// <param name="name"></param>
+    /// <param name="action"></param>
+    public static void 设置监听器<R>(string name, Func<R> action)
     {
         try
         {
@@ -161,7 +167,7 @@ public static class EventManager
     }
 
 
-    public static void DelListener(string name, UnityAction action)
+    public static void 删除监听器(string name, UnityAction action)
     {
         try
         {
@@ -181,7 +187,7 @@ public static class EventManager
         }
     }
 
-    public static int GetEventCount(string name)
+    public static int 获取事件数量(string name)
     {
         if (actions.ContainsKey(name) && (actions[name] as EventInfo).action != null)
         {
@@ -190,7 +196,7 @@ public static class EventManager
         return 0;
     }
 
-    public static void DelListener<T>(string name, UnityAction<T> action)
+    public static void 获取事件数量<T>(string name, UnityAction<T> action)
     {
         try
         {
@@ -205,7 +211,7 @@ public static class EventManager
             Debug.LogError(e.Message);
         }
     }
-    public static void DelListener<T1, T2>(string name, UnityAction<T1, T2> action)
+    public static void 获取事件数量<T1, T2>(string name, UnityAction<T1, T2> action)
     {
         try
         {
@@ -221,7 +227,7 @@ public static class EventManager
         }
     }
 
-    public static void UnsetListener<R>(string name)
+    public static void 清除事件监听<R>(string name)
     {
         try
         {
@@ -238,7 +244,7 @@ public static class EventManager
     }
 
 
-    public static void Invoke(string name)
+    public static void 激活(string name)
     {
         try
         {
@@ -257,7 +263,7 @@ public static class EventManager
             Debug.LogError(e.Message);
         }
     }
-    public static void Invoke<T>(string name, T parameter)
+    public static void 激活<T>(string name, T parameter)
     {
         if (actions.ContainsKey(name) && (actions[name] as EventInfo<T>).action != null)
         {
@@ -268,7 +274,7 @@ public static class EventManager
             Debug.Log($"不存在 {name} 事件或无触发事件");
         }
     }
-    public static void Invoke<T1, T2>(string name, T1 parameter1, T2 parameter2)
+    public static void 激活<T1, T2>(string name, T1 parameter1, T2 parameter2)
     {
         try
         {
@@ -288,7 +294,7 @@ public static class EventManager
         }
     }
 
-    public static R Call<R>(string name)
+    public static R 激活<R>(string name)
     {
         if (actions.ContainsKey(name) && (actions[name] as FuncInfo<R>).action != null)
         {
@@ -301,7 +307,7 @@ public static class EventManager
         }
     }
 
-    public static Delegate[] GetFunc<T, R>(string name)
+    public static Delegate[] 获取事件列表<T, R>(string name)
     {
         if (actions.ContainsKey(name) && (actions[name] as FuncInfo<T, R>).action != null)
         {
