@@ -12,16 +12,12 @@ public class UI管理器 : 基础管理器<UI管理器>
 
 
 
-    public 基础UI GetUI(string name)
+    public 基础UI 获取UI(string name)
     {
         if (!UICollection.ContainsKey(name))
         {
             var t = System.Type.GetType(name);
             var ui = (基础UI)System.Activator.CreateInstance(t);
-            if (!ui.Single)
-            {
-                name += "_" + ui.obj.GetInstanceID();
-            }
             UICollection.Add(name, ui);
 
             return ui;
@@ -31,18 +27,18 @@ public class UI管理器 : 基础管理器<UI管理器>
     }
 
 
-    public T GetUI<T>() where T : 基础UI, new()
+    public T 获取UI<T>() where T : 基础UI, new()
     {
         var name = typeof(T).Name;
         if(!UICollection.ContainsKey(name))
         {
-            InitUI<T>();
+            初始化UI<T>();
         }
 
         return UICollection[name] as T;
     }
 
-    public T GetUI<T>(string name) where T : 基础UI, new()
+    public T 获取UI<T>(string name) where T : 基础UI, new()
     {
         if (!UICollection.ContainsKey(name))
         {
@@ -53,38 +49,34 @@ public class UI管理器 : 基础管理器<UI管理器>
     }
 
 
-    public void InitUI<T>() where T : 基础UI, new()
+    public void 初始化UI<T>() where T : 基础UI, new()
     {
         var ui = new T();
         var name = ui.GetType().Name;
 
-        if (!ui.Single)
-        {
-            name += "_" + ui.obj.GetInstanceID();
-        }
 
         UICollection.Add(name, ui);
     }
 
-    public override void Update()
+    public override void 更新()
     {
         foreach (var updater in UpdateCollection)
         {
-            updater.Update();
+            updater.更新();
         }
     }
 
-    public bool Navigation(string name, params object[] parms)
+    public bool 导航(string name, params object[] parms)
     {
         if (!UICollection.ContainsKey(name))
             return false;
 
-        if (UICollection[name].Open(parms))
+        if (UICollection[name].打开(parms))
         {
             if (UIStack.Count != 0)
             {
                 var ui = UIStack.Peek();
-                ui.Item1.Close();
+                ui.Item1.关闭();
             }
             UIStack.Push((UICollection[name], parms));
             return true;
@@ -92,22 +84,22 @@ public class UI管理器 : 基础管理器<UI管理器>
         return false;
     }
 
-    public bool Navigation<T>(params object[] parms) where T : 基础UI, new()
+    public bool 导航<T>(params object[] parms) where T : 基础UI, new()
     {
         var name = typeof(T).Name;
 
         if (!UICollection.ContainsKey(name))
         {
-            InitUI<T>();
+            初始化UI<T>();
         }
 
-        if (UICollection[name].Open(parms))
+        if (UICollection[name].打开(parms))
         {
 
             if (UIStack.Count != 0)
             {
                 var ui = UIStack.Peek();
-                ui.Item1.Close();
+                ui.Item1.关闭();
             }
             UIStack.Push((UICollection[name], parms));
             return true;
@@ -115,24 +107,34 @@ public class UI管理器 : 基础管理器<UI管理器>
         return false;
     }
 
+    /// <summary>
+    /// 请不要调用
+    /// </summary>
+    /// <param name="ui"></param>
     public void UIOnOpen(基础UI ui)
     {
         UpdateCollection.Add(ui);        
     }
 
+    /// <summary>
+    /// 请不要调用
+    /// </summary>
+    /// <param name="ui"></param>
     public void UIOnClose(基础UI ui)
     {
         UpdateCollection.Remove(ui);
     }
 
-
+    /// <summary>
+    /// 关闭所有 UI，并清除 UI 栈
+    /// </summary>
     public void CloseAllUI()
     {
         UIStack.Clear();
         for (int i = UpdateCollection.Count - 1; i >= 0; i--)
         {
             if (UpdateCollection[i].Name != "Loading")
-                UpdateCollection[i].Close();
+                UpdateCollection[i].关闭();
         }
     }
 
@@ -141,11 +143,11 @@ public class UI管理器 : 基础管理器<UI管理器>
     {
         if (UIStack.Count != 0)
         {
-            UIStack.Pop().Item1.Close();
+            UIStack.Pop().Item1.关闭();
             if (UIStack.Count != 0)
             {
                 var t = UIStack.Peek();
-                t.Item1.Open(t.Item2);
+                t.Item1.打开(t.Item2);
             }
         }
     }
