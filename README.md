@@ -8,10 +8,7 @@
 4. 调教功能
 5. 基本的系统功能
 ## 如何使用
-### 直接使用框架
-使用 package manager 添加该项目 url: https://github.com/wozpren/EraofUnity.git
-### 帮助开发框架
-使用 unity 2021.2 以上版本创建新项目。将package内文件删除，将本项目克隆至该地址。
+克隆项目到空文件, 或者下载ZIP解压. 添加到 Unity Hub 中
 
 ## 框架教程
 详细教程请参阅 Wiki
