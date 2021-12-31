@@ -55,7 +55,7 @@ public class 游戏管理器 : MonoBehaviour
     {
         foreach (var manager in managerPool)
         {
-            manager.Update();
+            manager.更新();
         }
     }
     protected virtual void LateUpdate()

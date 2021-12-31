@@ -23,7 +23,7 @@ public abstract class 基础管理器
     {
 
     }
-    public virtual void Update()
+    public virtual void 更新()
     {
 
     }
