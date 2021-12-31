@@ -1,5 +1,5 @@
 # Era of Unity
-该项目基于Unity所开发的Era类游戏开源框架。UI使用UI Toolkit，支持Unity 2021.2以上版本。
+该项目基于Unity所开发的Era类游戏开源框架。UI使用UGUI，支持Unity 2021.2以上版本。
 当前使用 **Unity 2021.2.7**
 项目主要完成的目标：
 1. 文字式UI框架
