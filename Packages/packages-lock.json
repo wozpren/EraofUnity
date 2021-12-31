@@ -1,13 +1,5 @@
 {
   "dependencies": {
-    "com.undefined.eraofunity": {
-      "version": "file:EraofUnity",
-      "depth": 0,
-      "source": "embedded",
-      "dependencies": {
-        "com.unity.textmeshpro": "3.0.6"
-      }
-    },
     "com.unity.collab-proxy": {
       "version": "1.15.4",
       "depth": 0,
@@ -124,7 +116,7 @@
     },
     "com.unity.textmeshpro": {
       "version": "3.0.6",
-      "depth": 1,
+      "depth": 0,
       "source": "registry",
       "dependencies": {
         "com.unity.ugui": "1.0.0"

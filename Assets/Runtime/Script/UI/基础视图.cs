@@ -5,34 +5,38 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 
-public abstract class 基础UI<T> where T: 基础页
+public abstract class 基础视图<T> : 基础视图 where T: 基础页
 {
-    public T Page;
+    public T 页面;
 
+    public 基础视图()
+    {
+        page = 页面.GetType().Name;
+        页面 = UI管理器.实例.获取页面<T>();
+    }
 }
-public abstract class 基础UI 
+public abstract class 基础视图 
 {
-    public bool IsOpen { get;private set;  }
+    public bool 打开的 { get;private set;  }
     public string page;
-
 
     public virtual bool 打开(params object[] 参数)
     {
-        if (IsOpen) return false;
+        if (打开的) return false;
 
-        IsOpen = true;
-        UI管理器.Instance.UIOnOpen(this);
+        打开的 = true;
+        UI管理器.实例.UIOnOpen(this);
         return true;
     }
 
     public virtual bool 关闭()
     {
-        if (!IsOpen) return false;
+        if (!打开的) return false;
 
-        IsOpen = false;
+        打开的 = false;
 
         EventSystem.current.SetSelectedGameObject(null);
-        UI管理器.Instance.UIOnClose(this);
+        UI管理器.实例.UIOnClose(this);
 
         return true;
     }

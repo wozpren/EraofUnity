@@ -6,20 +6,20 @@ using System.Threading.Tasks;
 
 public abstract class 基础管理器 
 {
-    public virtual void Init()
+    public virtual void 初始化()
     {
 
     }
 
-    public virtual void Start()
+    public virtual void 开始()
     {
 
     }
-    public virtual void OnEnable()
+    public virtual void 开启()
     {
 
     }
-    public virtual void OnDisable()
+    public virtual void 关闭()
     {
 
     }
@@ -28,11 +28,12 @@ public abstract class 基础管理器
 
     }
 
-    public virtual void LateUpdate()
+    public virtual void 更新之后()
     {
 
     }
-    public virtual void FixedUpdate()
+
+    public virtual void 固定更新()
     {
 
     }
@@ -43,7 +44,7 @@ public abstract class 基础管理器<T>: 基础管理器 where T: 基础管理�
 {
 
     private static T 私有实例;
-    public static T Instance
+    public static T 实例
     {
         get
         {

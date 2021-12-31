@@ -9,7 +9,7 @@ public class 游戏管理器 : MonoBehaviour
 {
     public static 游戏管理器 实例;
 
-    private List<基础管理器> managerPool = new List<基础管理器>();
+    private List<基础管理器> 管理器池 = new List<基础管理器>();
 
 
 
@@ -36,45 +36,40 @@ public class 游戏管理器 : MonoBehaviour
         文本管理器.camera = Camera.main;
 
 
-        managerPool.Add(UI管理器.Instance);
-        foreach (var manager in managerPool)
+        管理器池.Add(UI管理器.实例);
+        foreach (var manager in 管理器池)
         {
-            manager.Init();
+            manager.初始化();
         }
     }
 
 
     protected virtual void Start()
     {
-        foreach (var manager in managerPool)
+        foreach (var manager in 管理器池)
         {
-            manager.Start();
+            manager.开始();
         }
-
-
-
-        var page = Resources.Load<GameObject>("OnePage");
-        Debug.Log(page);
     }
     protected virtual void Update()
     {
-        foreach (var manager in managerPool)
+        foreach (var manager in 管理器池)
         {
             manager.更新();
         }
     }
     protected virtual void LateUpdate()
     {
-        foreach (var manager in managerPool)
+        foreach (var manager in 管理器池)
         {
-            manager.LateUpdate();
+            manager.更新之后();
         }
     }
     protected virtual void FixedUpdate()
     {
-        foreach (var manager in managerPool)
+        foreach (var manager in 管理器池)
         {
-            manager.FixedUpdate();
+            manager.固定更新();
         }
     }
 
