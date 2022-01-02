@@ -4,10 +4,9 @@ using UnityEngine;
 
 public static class 工具
 {
-
-    public static bool 判断(比较符 符号, int a, int b)
+    public static bool 判断(比较符 比较符, int a, int b)
     {
-        switch (符号)
+        switch (比较符)
         {
             case 比较符.大于:
                 return a > b;

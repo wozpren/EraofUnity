@@ -24,4 +24,26 @@ public class 角色
     public Dictionary<string, int> 刻印 = new Dictionary<string, int>();
 
     public Dictionary<string, 性器官> 性器官集合 = new Dictionary<string, 性器官>();
+
+    /// <summary>
+    /// 获取经验, 能力, 宝珠, 刻印中的一种。
+    /// </summary>
+    /// <param name="名字"></param>
+    /// <returns></returns>
+    public virtual Dictionary<string, int> 获取字典(string 名字)
+    {
+        switch (名字)
+        {
+            case "经验":
+                return 经验;
+            case "能力":
+                return 能力;
+            case "宝珠":
+                return 宝珠;
+            case "刻印":
+                return 刻印;
+        }
+        Debug.LogError($"不存在{名字}的字典");
+        return null;
+    }
 }
